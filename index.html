@@ -3,169 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HackBand Obry Metal Live</title>
+  <title>Simulasi Hacker</title>
   <style>
     body {
       background: black;
       color: lime;
       font-family: monospace;
-      text-align: center;
       padding: 20px;
+      white-space: pre-wrap;
     }
-    h1 {
-      color: lime;
-      text-shadow: 0 0 20px red;
-      animation: glow 1.5s infinite alternate;
+    #console {
+      border-right: 2px solid lime;
+      display: inline-block;
+      padding-right: 5px;
+      animation: blink 0.7s infinite;
     }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px lime; }
-      to   { text-shadow: 0 0 25px orange; }
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
-    .stage {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-    /* === Stickman umum === */
-    .stickman {
-      width: 100px;
-      height: 200px;
-      position: relative;
-      margin: 10px;
-    }
-    .head {
-      width: 40px;
-      height: 40px;
-      border: 3px solid lime;
-      border-radius: 50%;
-      margin: 0 auto;
-      animation: headbang 0.6s infinite alternate;
-    }
-    @keyframes headbang {
-      from { transform: rotate(10deg); }
-      to   { transform: rotate(-15deg); }
-    }
-    .body {
-      width: 4px;
-      height: 80px;
-      background: lime;
-      margin: 0 auto;
-    }
-    .arm {
-      width: 60px;
-      height: 4px;
-      background: lime;
-      position: absolute;
-      top: 50px;
-    }
-    .arm.left { left: -55px; transform-origin: right; }
-    .arm.right { right: -55px; transform-origin: left; }
-    .leg {
-      width: 4px;
-      height: 50px;
-      background: lime;
-      position: absolute;
-      bottom: 0;
-    }
-    .leg.left { left: 35px; transform: rotate(10deg); }
-    .leg.right { right: 35px; transform: rotate(-10deg); }
-
-    /* Animasi khusus */
-    @keyframes strum {
-      0%   { transform: rotate(10deg); }
-      50%  { transform: rotate(-20deg); }
-      100% { transform: rotate(10deg); }
-    }
-    @keyframes strumSlow {
-      0%   { transform: rotate(5deg); }
-      50%  { transform: rotate(-10deg); }
-      100% { transform: rotate(5deg); }
-    }
-    .guitarist .arm.left,
-    .guitarist .arm.right {
-      animation: strum 0.4s infinite;
-    }
-    .bassist .arm.left,
-    .bassist .arm.right {
-      animation: strumSlow 0.8s infinite;
-    }
-    /* === Drum === */
-    .drum {
-      width: 60px;
-      height: 60px;
-      border: 3px solid red;
-      border-radius: 50%;
-      margin: 20px auto;
-      animation: drumHit 0.5s infinite;
-    }
-    @keyframes drumHit {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(0.8); }
-    }
-    .drummer .arm.left,
-    .drummer .arm.right {
-      animation: strum 0.3s infinite;
-    }
-    /* === Vokalis === */
-    .mic {
-      width: 6px;
-      height: 60px;
-      background: white;
-      margin: 0 auto;
-    }
-    .vocalist .head {
-      animation: headbang 0.4s infinite alternate;
+    .success {
+      color: red;
+      text-shadow: 0 0 5px red;
     }
   </style>
 </head>
 <body>
-  <h1>🤘 HackBand Obry Metal Live 🤘</h1>
-  <p>Stickman Band: Gitar, Bass, Drum, Vokal! Let’s rock!</p>
+  <div id="console"></div>
 
-  <div class="stage">
-    <!-- Gitaris -->
-    <div class="stickman guitarist">
-      <div class="head"></div>
-      <div class="body"></div>
-      <div class="arm left"></div>
-      <div class="arm right"></div>
-      <div class="leg left"></div>
-      <div class="leg right"></div>
-    </div>
+  <script>
+    const lines = [
+      "Menghubungkan ke server pemerintah...",
+      "Bypassing firewall...",
+      "Meminta akses database...",
+      "Mendapatkan respon...",
+      "Decrypting data [####################] 100%",
+      "",
+      "ACCESS GRANTED ✅",
+      "",
+      "Mengambil data rahasia...",
+      "Nama   : Joko Santoso",
+      "NIK    : 317XXXXXXXXX",
+      "Alamat : Jl. Merdeka No.123, Jakarta",
+      "Status : AKTIF",
+      "",
+      ">> Data berhasil diunduh!"
+    ];
 
-    <!-- Bassist -->
-    <div class="stickman bassist">
-      <div class="head"></div>
-      <div class="body"></div>
-      <div class="arm left"></div>
-      <div class="arm right"></div>
-      <div class="leg left"></div>
-      <div class="leg right"></div>
-    </div>
+    let i = 0;
+    let j = 0;
+    const consoleDiv = document.getElementById("console");
 
-    <!-- Drummer -->
-    <div class="stickman drummer">
-      <div class="drum"></div>
-      <div class="head"></div>
-      <div class="body"></div>
-      <div class="arm left"></div>
-      <div class="arm right"></div>
-      <div class="leg left"></div>
-      <div class="leg right"></div>
-    </div>
-
-    <!-- Vokalis -->
-    <div class="stickman vocalist">
-      <div class="head"></div>
-      <div class="body"></div>
-      <div class="arm left"></div>
-      <div class="arm right"></div>
-      <div class="leg left"></div>
-      <div class="leg right"></div>
-      <div class="mic"></div>
-    </div>
-  </div>
+    function typeLine() {
+      if (i < lines.length) {
+        if (j < lines[i].length) {
+          consoleDiv.textContent += lines[i][j];
+          j++;
+          setTimeout(typeLine, 30);
+        } else {
+          consoleDiv.textContent += "\n";
+          i++;
+          j = 0;
+          setTimeout(typeLine, 200);
+        }
+      }
+    }
+    window.onload = typeLine;
+  </script>
 </body>
 </html>
