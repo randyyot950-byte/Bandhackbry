@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HackBand Obry - Metal Concert</title>
+  <style>
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      text-align: center;
+      padding: 30px;
+      overflow: hidden;
+    }
+    #intro {
+      font-size: 22px;
+      white-space: pre-wrap;
+      border-right: 2px solid lime;
+      display: inline-block;
+      padding-right: 5px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink { 50% { border-color: transparent; } }
+    #content { display: none; }
+    h1 {
+      font-size: 34px;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px red; }
+      to   { text-shadow: 0 0 25px orange; }
+    }
+    .video {
+      margin-top: 30px;
+    }
+    iframe {
+      border-radius: 15px;
+      box-shadow: 0 0 30px red;
+    }
+    .btn {
+      margin-top: 40px;
+      padding: 12px 25px;
+      background: lime;
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro typing -->
+  <div id="intro"></div>
+
+  <!-- Konten utama -->
+  <div id="content">
+    <h1>🤘 HackBand Obry Metal Live 🤘</h1>
+    <p>Stickman Band: Gitar, Bass, Drum, Vokal! Let’s rock!</p>
+
+    <div class="video">
+      <!-- Video ini menampilkan robot/stickman band dengan vibe metal -->
+      <iframe width="640" height="360" 
+        src="https://www.youtube.com/embed/u1J1st5Aidc?autoplay=1" 
+        title="Stickman Band Metal" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <a href="index.html" class="btn">⬅ Kembali ke Login</a>
+  </div>
+
+  <script>
+    const text = "Selamat datang di HackBand Obry...\n\nMenghubungkan panggung virtual...\n\nLoad member: Gitaris, Bassist, Drummer, Vokalis...\n\nACCESS GRANTED!";
+    const introDiv = document.getElementById("intro");
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        introDiv.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      } else {
+        setTimeout(() => {
+          introDiv.style.display = "none";
+          document.getElementById("content").style.display = "block";
+        }, 1500);
+      }
+    }
+
+    window.onload = typeWriter;
+  </script>
+</body>
+</html>
