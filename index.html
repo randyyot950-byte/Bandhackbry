@@ -14,23 +14,26 @@
     }
     h1 {
       color: lime;
-      text-shadow: 0 0 20px orange;
+      text-shadow: 0 0 20px red;
       animation: glow 1.5s infinite alternate;
     }
     @keyframes glow {
       from { text-shadow: 0 0 5px lime; }
-      to   { text-shadow: 0 0 25px red; }
+      to   { text-shadow: 0 0 25px orange; }
     }
     .stage {
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
-      margin-top: 50px;
+      margin-top: 40px;
+      flex-wrap: wrap;
     }
+    /* === Stickman umum === */
     .stickman {
       width: 100px;
       height: 200px;
       position: relative;
+      margin: 10px;
     }
     .head {
       width: 40px;
@@ -57,21 +60,8 @@
       position: absolute;
       top: 50px;
     }
-    .arm.left {
-      left: -55px;
-      transform-origin: right;
-      animation: strum 0.4s infinite;
-    }
-    .arm.right {
-      right: -55px;
-      transform-origin: left;
-      animation: strum 0.4s infinite reverse;
-    }
-    @keyframes strum {
-      0%   { transform: rotate(10deg); }
-      50%  { transform: rotate(-20deg); }
-      100% { transform: rotate(10deg); }
-    }
+    .arm.left { left: -55px; transform-origin: right; }
+    .arm.right { right: -55px; transform-origin: left; }
     .leg {
       width: 4px;
       height: 50px;
@@ -81,6 +71,27 @@
     }
     .leg.left { left: 35px; transform: rotate(10deg); }
     .leg.right { right: 35px; transform: rotate(-10deg); }
+
+    /* Animasi khusus */
+    @keyframes strum {
+      0%   { transform: rotate(10deg); }
+      50%  { transform: rotate(-20deg); }
+      100% { transform: rotate(10deg); }
+    }
+    @keyframes strumSlow {
+      0%   { transform: rotate(5deg); }
+      50%  { transform: rotate(-10deg); }
+      100% { transform: rotate(5deg); }
+    }
+    .guitarist .arm.left,
+    .guitarist .arm.right {
+      animation: strum 0.4s infinite;
+    }
+    .bassist .arm.left,
+    .bassist .arm.right {
+      animation: strumSlow 0.8s infinite;
+    }
+    /* === Drum === */
     .drum {
       width: 60px;
       height: 60px;
@@ -93,22 +104,39 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(0.8); }
     }
+    .drummer .arm.left,
+    .drummer .arm.right {
+      animation: strum 0.3s infinite;
+    }
+    /* === Vokalis === */
+    .mic {
+      width: 6px;
+      height: 60px;
+      background: white;
+      margin: 0 auto;
+    }
+    .vocalist .head {
+      animation: headbang 0.4s infinite alternate;
+    }
   </style>
 </head>
 <body>
   <h1>🤘 HackBand Obry Metal Live 🤘</h1>
   <p>Stickman Band: Gitar, Bass, Drum, Vokal! Let’s rock!</p>
 
-  <!-- Musik YouTube (disembunyiin, cuma suara) -->
-  <iframe 
-    src="https://www.youtube.com/embed/u1J1st5Aidc?autoplay=1&loop=1&playlist=u1J1st5Aidc"
-    style="width:0;height:0;border:0; visibility:hidden;" 
-    allow="autoplay">
-  </iframe>
-
   <div class="stage">
     <!-- Gitaris -->
-    <div class="stickman">
+    <div class="stickman guitarist">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+    </div>
+
+    <!-- Bassist -->
+    <div class="stickman bassist">
       <div class="head"></div>
       <div class="body"></div>
       <div class="arm left"></div>
@@ -118,16 +146,25 @@
     </div>
 
     <!-- Drummer -->
-    <div>
+    <div class="stickman drummer">
       <div class="drum"></div>
-      <div class="stickman">
-        <div class="head"></div>
-        <div class="body"></div>
-        <div class="arm left"></div>
-        <div class="arm right"></div>
-        <div class="leg left"></div>
-        <div class="leg right"></div>
-      </div>
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+    </div>
+
+    <!-- Vokalis -->
+    <div class="stickman vocalist">
+      <div class="head"></div>
+      <div class="body"></div>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+      <div class="leg left"></div>
+      <div class="leg right"></div>
+      <div class="mic"></div>
     </div>
   </div>
 </body>
